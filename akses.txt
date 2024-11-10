@@ -1,0 +1,7 @@
+User Admin 
+id : Fadhi.181097@gmail.com
+Pass : Fadhil
+
+User biasa
+id : Fadhil@gmail.com
+Pass : Naufal

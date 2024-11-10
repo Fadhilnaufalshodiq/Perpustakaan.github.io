@@ -1,0 +1,940 @@
+/* Menggabungkan duplikasi CSS */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* Menjamin seluruh halaman tampil tanpa ada yang terpotong */
+}
+
+nav {
+    width: 100%;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+nav .logo {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    width: auto;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    display: block;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+nav ul li a:hover,
+nav ul li.active a {
+    background-color: #2980b9;
+}
+
+nav .dropdown {
+    position: relative;
+}
+
+nav .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    min-width: 160px;
+    padding: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+nav .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+nav .dropdown-menu li {
+    padding: 10px 20px;
+}
+
+nav .dropdown-menu li a {
+    color: #ecf0f1;
+}
+
+nav .dropdown-menu li a:hover {
+    background-color: #34495e;
+}
+
+header {
+    background-color: #4CAF50;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    margin-top: 80px;
+    /* Memberikan ruang setelah navbar */
+    z-index: 50;
+    position: relative;
+    /* Agar tidak tertimpa navbar */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 10;
+}
+
+.book-list {
+    padding: 20px;
+    margin-top: 80px;
+    /* Memberikan ruang setelah navbar */
+    flex: 1;
+    overflow-y: auto;
+}
+
+.book-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.book-list li {
+    background-color: #ecf0f1;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.book-list h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.book-list p {
+    margin: 5px 0;
+}
+
+.book-list a {
+    text-decoration: none;
+    color: #2980b9;
+}
+
+.book-list a:hover {
+    text-decoration: underline;
+}
+
+
+/* Modal Styles */
+
+.modalDialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+}
+
+.modalDialog:target {
+    display: block;
+}
+
+.modalDialog div {
+    width: 400px;
+    padding: 20px;
+    margin: 10% auto;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.close:hover {
+    color: red;
+}
+
+
+/* Table Styles */
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table-striped tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table-hover tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* Form Select Styling */
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+
+/* Delete Book Page */
+
+.delete-book {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.delete-book h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+.delete-book h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #666;
+    text-align: center;
+}
+
+.book-item {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-item:hover {
+    background-color: #f0f0f0;
+}
+
+.book-title {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+.delete-button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
+
+.delete-button:active {
+    background-color: #e74c3c;
+}
+
+.delete-button:focus {
+    outline: none;
+}
+
+
+/* Table for Book List */
+
+.book-list table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+}
+
+.book-list th,
+.book-list td {
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.book-list th {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+.book-list td {
+    background-color: #f9f9f9;
+}
+
+.book-list tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.book-list tbody tr:hover {
+    background-color: #ecf0f1;
+}
+
+.book-list a {
+    text-decoration: none;
+}
+
+.book-list .btn {
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.book-list .btn:hover {
+    transform: scale(1.05);
+}
+
+.book-list .btn-success {
+    background-color: #161617;
+    border-color: #020202;
+}
+
+.book-list .btn-success:hover {
+    background-color: #659770;
+    border-color: #dff1e3;
+}
+
+.book-list .btn-danger {
+    background-color: #dc3545;
+    border-color: #c82333;
+}
+
+.book-list .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+
+/* Responsif untuk tampilan mobile */
+
+@media (max-width: 768px) {
+    .book-list table {
+        font-size: 14px;
+    }
+    .book-list th,
+    .book-list td {
+        padding: 8px 10px;
+    }
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav .logo {
+        text-align: left;
+    }
+    .book-list {
+        margin-top: 120px;
+        /* Memberikan ruang untuk navbar yang lebih besar pada perangkat mobile */
+    }
+}
+
+
+/* General Styling */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+
+/* Container for form */
+
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Wrapper for form */
+
+.form-wrapper {
+    width: 100%;
+}
+
+
+/* Heading */
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+/* Form Group */
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+/* Input label */
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+
+/* Input field */
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+
+/* Button */
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    background-color: #2980b9;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #1c6f8c;
+}
+
+
+/* Footer links */
+
+.form-footer {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.form-footer p {
+    font-size: 14px;
+}
+
+.form-footer a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* Error and Success Messages */
+
+.error-message,
+.success-message {
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.error-message {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.success-message {
+    background-color: #28a745;
+    color: white;
+}
+
+
+/* Responsif untuk tampilan mobile */
+
+@media (max-width: 768px) {
+    .form-container {
+        padding: 15px;
+        width: 90%;
+    }
+    .form-group input {
+        font-size: 12px;
+        padding: 8px;
+    }
+    .btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+
+/* Styling untuk Daftar Buku */
+
+.book-list-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+
+/* Judul Section */
+
+.section-title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+
+/* Tabel Buku */
+
+.book-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.book-list-table th,
+.book-list-table td {
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+.book-list-table th {
+    background-color: #2980b9;
+    color: white;
+    font-size: 16px;
+}
+
+.book-list-table td {
+    background-color: #f9f9f9;
+    font-size: 14px;
+}
+
+.book-list-table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.book-list-table tbody tr:hover {
+    background-color: #ecf0f1;
+}
+
+.book-list-table td {
+    color: #333;
+}
+
+
+/* Pesan jika tidak ada buku */
+
+.no-books-message {
+    text-align: center;
+    color: #e74c3c;
+    font-size: 16px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+
+/* Responsif untuk tampilan mobile */
+
+@media (max-width: 768px) {
+    .book-list-container {
+        padding: 15px;
+        width: 95%;
+    }
+    .book-list-table th,
+    .book-list-table td {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+    .section-title {
+        font-size: 20px;
+    }
+    .no-books-message {
+        font-size: 14px;
+    }
+}
+
+
+/* Styling untuk Daftar Buku */
+
+.book-list {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+
+/* Judul Section */
+
+.section-title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+
+/* Grid layout untuk buku */
+
+.book-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+
+/* Card untuk setiap buku */
+
+.book-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.book-card-header h3 {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+}
+
+.book-card-body p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.book-card-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.book-card-footer .btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #2980b9;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.book-card-footer .btn:hover {
+    background-color: #1f6d8c;
+}
+
+
+/* Pesan jika tidak ada buku */
+
+.no-books-message {
+    text-align: center;
+    color: #e74c3c;
+    font-size: 16px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+
+/* Responsif untuk tampilan mobile */
+
+@media (max-width: 768px) {
+    .book-list {
+        padding: 15px;
+        width: 95%;
+    }
+    .section-title {
+        font-size: 20px;
+    }
+    .book-card-header h3 {
+        font-size: 16px;
+    }
+    .book-card-body p {
+        font-size: 12px;
+    }
+    .book-card-footer .btn {
+        padding: 8px 12px;
+    }
+}
+
+
+/* Desain untuk Halaman "Tambah Buku" */
+
+.add-book {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-book h2 {
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+
+/* Input Group */
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    transition: border 0.3s ease;
+}
+
+
+/* Efek ketika input difokuskan */
+
+.input-group input:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+
+/* Tombol Submit */
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #2980b9;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+/* Hover Effect pada Tombol */
+
+.btn-submit:hover {
+    background-color: #1f6d8c;
+}
+
+
+/* Responsif untuk tampilan mobile */
+
+@media (max-width: 768px) {
+    .add-book {
+        padding: 20px;
+    }
+    .add-book h2 {
+        font-size: 20px;
+    }
+    .input-group input {
+        padding: 10px;
+        font-size: 14px;
+    }
+    .btn-submit {
+        padding: 10px;
+    }
+}
+
+
+/* Styling untuk halaman Edit Buku */
+
+.edit-book {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-book h2 {
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+
+/* Input group styling */
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    transition: border 0.3s ease;
+}
+
+
+/* Efek saat input fokus */
+
+.input-group input:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+
+/* Tombol submit */
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #2980b9;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+/* Efek hover pada tombol submit */
+
+.btn-submit:hover {
+    background-color: #1f6d8c;
+}
+
+
+/* Responsif untuk perangkat mobile */
+
+@media (max-width: 768px) {
+    .edit-book {
+        padding: 20px;
+    }
+    .edit-book h2 {
+        font-size: 20px;
+    }
+    .input-group input {
+        padding: 10px;
+        font-size: 14px;
+    }
+    .btn-submit {
+        padding: 10px;
+    }
+}
